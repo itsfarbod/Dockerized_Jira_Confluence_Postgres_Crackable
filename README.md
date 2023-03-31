@@ -19,4 +19,51 @@ You can download binary installation files from here:
 Change `POSTGRES_USER` (replace `dbuser`) and `POSTGRES_PASSWORD` (replace `<DBPassword>`) enviroments in postgres service with your specified credentials.
 If you change `POSTGRES_USER` value you have to change it in **./Postgres/initial.sql** file too(Replacing all `dbuser` values with specified username).
 
-- **The volumes in docker-compose.yml file will save container datas inside `/srv/confluence/data` , `/srv/jira/data` and `/srv/postgres/data` dirs**
+- **The volumes in docker-compose.yml file will save containers datas inside `/srv/confluence/data` , `/srv/jira/data` and `/srv/postgres/data` directories**
+
+## Postgres Configs
+
+### Credentials 
+
+You have to set DB credentials in docker-compose.yml file for `POSTGRES_USER` and `POSTGRES_PASSWORD` parameters.
+
+You need these information for connecting your Confluence and Jira to your Postgres DB.
+
+**If you change DB username in  docker-compose.yml file then you have to change `dbuser` value in `./Postgres/initial.sql` file**
+
+### Setting up databases needed for Jira and Confluence
+
+Head to the `./Postgres/initial.sql` file and then you can see the Database names and database user and the needed privileges assigned to the database user.
+
+**Postgres Dockerfile will only copy the initial.sql file to the container and initial the database with those queries**
+
+## Jira and Confluence Configs
+
+### atlassian-agent.jar file, the important crack file
+
+You should fount the `atlassian-agent.jar` file which is the main crack file for this installation and save it in `./jira` and `./confluence` directories.
+**Make sure to rename the agent crack file to `atlassian-agent.jar`**
+**Notice that Dockerfile needs this crack file to build the images**
+
+- Additional information about the crack file:
+
+For some reasons i can't share crack file in github or link it to other places from here.
+But it's kinda easy to found this crack file under the `atlassian-agent.jar` name.
+
+### Jira
+
+- Go to `./Jira` directory.
+- Open `server.xml` file and head to `Connector` section.
+- change `proxyName` parameter and replace your domain name with `jira.example.com` value.
+- Don't change `answers.txt` and `setenv.sh` files, They are modified to install and crack binary files.
+- Don't forget to move `atlassian-agent.jar` file to `./Jira` directory.
+
+### Confluence
+
+- Go to `./Confluence` directory.
+- Open `server.xml` file and head to `Connector` section.
+- change `proxyName` parameter and replace your domain name with `confluence.example.com` value.
+- Don't change `answers.txt` and `setenv.sh` files, They are modified to install and crack binary files.
+- Don't forget to move `atlassian-agent.jar` file to `./Confluence` directory.
+
+
