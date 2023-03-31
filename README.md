@@ -5,9 +5,9 @@ Docker deployment of Jira &amp; Confluence Crackable alongside Postgres as an ex
 
 ### Providing binary installation files
 
-You should provide binary installation files of Confluence and Jira in ./Confluence and ./Jira and specify the name in both confluence and jira services in build/args section of docker_compose.yml file.
+You should provide binary installation files of Confluence and Jira in ./Confluence and ./Jira and specify the name in both confluence and jira services in build/args section of docker-compose.yml file.
 
-**Copy the full .bin file name and paste it in build/args section and replace `<Confluence-Binary-File.bin>` and `<jira-Binary-File.bin>` with file names in docker_compose.yml file.**
+**Copy the full .bin file name and paste it in build/args section and replace `<Confluence-Binary-File.bin>` and `<jira-Binary-File.bin>` with file names in docker-compose.yml file.**
 
 **Remember to put Confluence binary file in ./Confluence and Jira binary file in ./Jira**
 
@@ -41,14 +41,14 @@ Head to the `./Postgres/initial.sql` file and then you can see the Database name
 
 ### atlassian-agent.jar file, the important crack file
 
-You should fount the `atlassian-agent.jar` file which is the main crack file for this installation and save it in `./jira` and `./confluence` directories.
+You should found the `atlassian-agent.jar` file which is the main crack file for this installation and save it in `./jira` and `./confluence` directories.
 **Make sure to rename the agent crack file to `atlassian-agent.jar`**
 **Notice that Dockerfile needs this crack file to build the images**
 
 - Additional information about the crack file:
 
-For some reasons i can't share crack file in github or link it to other places from here.
-But it's kinda easy to found this crack file under the `atlassian-agent.jar` name.
+For some reasons i can't share crack file in Github or link it to other sources from here.
+But it's kinda easy to find this crack file under the `atlassian-agent.jar` name.
 
 ### Jira
 
