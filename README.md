@@ -1,2 +1,2 @@
-# Dockerized_Jira_Confluence_Postgres_Crackable
+# Dockerized Jira Confluence Postgres Crackable
 Docker deployment of Jira &amp; Confluence Crackable alongside Postgres as an external DB
