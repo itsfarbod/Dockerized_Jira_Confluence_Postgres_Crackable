@@ -1,5 +1,8 @@
 # Dockerized Jira Confluence Postgres Crackable
+
 Docker deployment of Jira &amp; Confluence Crackable alongside Postgres as an external DB
+
+**First of all clone project to your server and go to project directory**
 
 ## Docker Compoe Configuration
 
@@ -16,7 +19,9 @@ You can download binary installation files from here:
 - [Jira installers archieve](https://www.atlassian.com/software/jira/download-archives)
 
 ### Setting up DB credentials
+
 Change `POSTGRES_USER` (replace `dbuser`) and `POSTGRES_PASSWORD` (replace `<DBPassword>`) enviroments in postgres service with your specified credentials.
+
 If you change `POSTGRES_USER` value you have to change it in **./Postgres/initial.sql** file too(Replacing all `dbuser` values with specified username).
 
 - **The volumes in docker-compose.yml file will save containers datas inside `/srv/confluence/data` , `/srv/jira/data` and `/srv/postgres/data` directories**
@@ -42,12 +47,15 @@ Head to the `./Postgres/initial.sql` file and then you can see the Database name
 ### atlassian-agent.jar file, the important crack file
 
 You should found the `atlassian-agent.jar` file which is the main crack file for this installation and save it in `./jira` and `./confluence` directories.
+
 **Make sure to rename the agent crack file to `atlassian-agent.jar`**
+
 **Notice that Dockerfile needs this crack file to build the images**
 
 - Additional information about the crack file:
 
 For some reasons i can't share crack file in Github or link it to other sources from here.
+
 But it's kinda easy to find this crack file under the `atlassian-agent.jar` name.
 
 ### Jira
@@ -65,5 +73,46 @@ But it's kinda easy to find this crack file under the `atlassian-agent.jar` name
 - change `proxyName` parameter and replace your domain name with `confluence.example.com` value.
 - Don't change `answers.txt` and `setenv.sh` files, They are modified to install and crack binary files.
 - Don't forget to move `atlassian-agent.jar` file to `./Confluence` directory.
+
+## Running everything
+
+Run `docker compose up -d` in main directory.
+
+## Nginx Reverse proxy with let's encrypt ssl certificate
+
+- Step 1:
+  
+  Install certboot for obtaining ssl certificate.
+  
+- Step 2:
+
+  Head to `./Nginx` folder and rename `jira.example.com` and `confluence.example.com` files with your subdomains.
+  
+  Open these two files and set and replace your subdomains in `server_name` parameter under `server` section.
+  
+  You should replace `jira.example.com` and `confluence.example.com` with your subdomains.
+
+- Step 3:
+  
+  move these two files with the name of your subdomains to `/etc/nginx/sites-available/` directory
+
+- Step 4:
+  
+  Run `sudo nginx -t` for check the config files.
+  
+  If you get an error, reopen the server block file and check for any typos or missing characters.
+  
+  If you don't, reload nginx with this command `sudo systemctl reload nginx`
+  
+- Step 5:
+  
+  Get certificates and config the subdomains by runnig `sudo certbot --nginx` commnd.
+  
+  After running the above command, if nginx asked you to set a rule for redirecting http connection to https, it is recommended to accept that.
+  
+  Reload the Nginx with `sudo systemctl reload nginx`
+ 
+  
+Now, if your containers be up and running and you head to your subdomains for jira and confluence you will access to your services with https connection.
 
 
