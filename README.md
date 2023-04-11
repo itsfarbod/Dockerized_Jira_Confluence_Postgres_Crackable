@@ -116,3 +116,7 @@ Run `docker compose up -d` in main directory.
 Now, if your containers be up and running and you head to your subdomains for jira and confluence you will access to your services with https connection.
 
 
+## Set up
+
+### Set up confluence
+
