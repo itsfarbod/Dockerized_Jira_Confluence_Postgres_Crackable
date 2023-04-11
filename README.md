@@ -94,7 +94,7 @@ Run `docker compose up -d` in main directory.
 
 - Step 3:
   
-  move these two files with the name of your subdomains to `/etc/nginx/sites-available/` directory
+  move these two files with the name of your subdomains to `/etc/nginx/sites-enabled/` directory
 
 - Step 4:
   
