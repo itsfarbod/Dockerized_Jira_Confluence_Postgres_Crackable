@@ -2,15 +2,15 @@
 
 Docker deployment of Jira &amp; Confluence Crackable alongside Postgres as an external DB
 
-**First of all clone project to your server and go to project directory**
+**First of all make a sudo user e.g atlassian with sudo access and uid/gid 1000**
+
+It is very important to have a user with 1000 id
+
+Clone project to your server and go to project directory
 
 Then install docker cli on your server
 
-after that, you need to make a sudo user e.g atlassian with sudo access and uid/gid 1000
-
-this is very important to have a user with 1000 ids
-
-then make directories for docker volumes and set permission to user with 1000 id
+Then make directories for docker volumes and set permission to user with 1000 id:
 
 ```
 sudo mkdir /srv
@@ -49,7 +49,7 @@ If you change `POSTGRES_USER` value you have to change it in **./Postgres/initia
 
 You have to set DB credentials in docker-compose.yml file for `POSTGRES_USER` and `POSTGRES_PASSWORD` parameters.
 
-You need these information for connecting your Confluence and Jira to your Postgres DB.
+You need these information for connecting your Confluence and Jira قثبثقto your Postgres DB.
 
 **If you change DB username in  docker-compose.yml file then you have to change `dbuser` value in `./Postgres/initial.sql` file**
 
@@ -57,14 +57,14 @@ You need these information for connecting your Confluence and Jira to your Postg
 
 Head to the `./Postgres/initial.sql` file and then you can see the Database names and database user and the needed privileges assigned to the database user.
 
-**Postgres Dockerfile will only copy the initial.sql file to the container and initial the database with those queries**
+**Postgres Dockerfile will only copy the initial.sql file java -jar atlassian-agent.jar -d -m test@test.com -n BAT -p conf -o http://192.168.97.30 -s BNSS-82Q4-VNGO-PWE5 to the container and initial the database with those queries**
 
 ## Jira and Confluence Configs
 
 ### atlassian-agent.jar file, the important crack file
 
 You should found the `atlassian-agent.jar` file which is the main crack file for this installation and save it in `./jira` and `./confluence` directories.
-
+ java -jar atlassian-agent.jar -d -m test@test.com -n BAT -p conf -o http://192.168.97.30 -s BNSS-82Q4-VNGO-PWE5کپی
 **Make sure to rename the agent crack file to `atlassian-agent.jar`**
 
 **Notice that Dockerfile needs this crack file to build the images**
@@ -99,7 +99,7 @@ Run `docker compose up -d` in main directory.
 
 - Step 1:
   
-  Install certboot for obtaining ssl certificate.
+  Install certboot for obtaining ssl certificate.قثبثق
   
 - Step 2:
 
@@ -117,6 +117,79 @@ Now, if your containers be up and running and you head to your subdomains for ji
 
 
 ## Set up
+قثبثق
+It may sound strange, but yoHkd u قثبثقhave to complete start up setup in a new private tab in your browser or you will get an error in database setup.
 
 ### Set up confluence
 
+- Choose production installation
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf1.png)
+
+- Here Copy you Server ID
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf2.png)
+
+- After you copied your Server ID, In your server go to `<github clone>/Confluence/` and run this command:
+
+`java -jar atlassian-agent.jar -d -m <Your Email Here> -n BAT -p conf -o https://confluence.example.com -s <Your Server ID>`
+
+Replace Server ID and subdomain and email in above command.
+
+If you don't have java installed simply install it with:
+```
+apt update
+apt install default-jdk
+```
+- Choose non-clustered option then click next.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf3.png)
+
+- Here you have to configure DB
+
+Default host name is `postgres`
+
+Default port is `5432`
+
+Default DB is `confluencedb`
+
+Default username is `dbuser` if you have not changed it.
+
+And password is the one that you set in docker-compose.yml file.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf4.png)
+
+- Then click on test connection and if it was okay then click next.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf5.png)
+
+- Here you can make a empty site or load it from a backup. Creating an empty template is easy and you can refer to documentation for it, but here i'll load a backup.
+
+Click on load Restore From Backup.
+
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf6.png)قثبثق
+
+In you server copy your file to `/srv/confluence/restore` directory.
+
+`cp ./<Your backup file> /srv/confluence/restore/`
+
+Then reload the page and you can see the backup file down the page and then click on import.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf7.png)
+
+- Wait till the backup being restored.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf8.png)
+
+- IF it was complete then click on next.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf9.png)
+
+- Setup is complete now and then click on start to redirect to login page.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf10.png)
+
+- Now you can see the login page and you can login with your old credentials.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf11.png)
