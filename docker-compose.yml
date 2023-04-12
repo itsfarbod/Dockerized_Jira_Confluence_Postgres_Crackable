@@ -1,0 +1,52 @@
+version: "3.9"
+services:
+  confluence:
+    build:
+      context: ./Confluence
+      args:
+          FILENAME: <Confluence-Binary-File.bin>
+    volumes:
+      - /srv/confluence:/var/atlassian/application-data/confluence
+    networks:
+        db_network:
+          aliases:
+            - confluence
+    ports:
+      - "8090:8090"
+    depends_on:
+      - postgres
+  
+  jira:
+    build:
+      context: ./Jira
+      args:
+        FILENAME: <jira-Binary-File.bin>
+    volumes:
+      - /srv/jira:/var/atlassian/application-data/jira
+    networks:
+      db_network:
+        aliases:
+          - jira
+    ports:
+      - "8080:8080"
+    depends_on:
+      - confluence
+      - postgres
+
+
+  postgres:
+    build: 
+      context: ./Postgres
+    volumes:
+      - /srv/postgres/data:/var/lib/postgresql/data
+    networks:
+      db_network:
+        aliases:
+          - postgres
+    environment:
+      POSTGRES_USER: dbuser
+      POSTGRES_PASSWORD: <DBPassword> 
+  
+
+networks:
+  db_network: 
