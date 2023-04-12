@@ -41,7 +41,7 @@ Change `POSTGRES_USER` (replace `dbuser`) and `POSTGRES_PASSWORD` (replace `<DBP
 
 If you change `POSTGRES_USER` value you have to change it in **./Postgres/initial.sql** file too(Replacing all `dbuser` values with specified username).
 
-- **The volumes in docker-compose.yml file will save containers datas inside `/srv/confluence/data` , `/srv/jira/data` and `/srv/postgres/data` directories**
+- **The volumes in docker-compose.yml file will save containers datas inside `/srv/confluence` , `/srv/jira` and `/srv/postgres/data` directories**
 
 ## Postgres Configs
 
@@ -49,7 +49,7 @@ If you change `POSTGRES_USER` value you have to change it in **./Postgres/initia
 
 You have to set DB credentials in docker-compose.yml file for `POSTGRES_USER` and `POSTGRES_PASSWORD` parameters.
 
-You need these information for connecting your Confluence and Jira قثبثقto your Postgres DB.
+You need these information for connecting your Confluence and Jira to your Postgres DB.
 
 **If you change DB username in  docker-compose.yml file then you have to change `dbuser` value in `./Postgres/initial.sql` file**
 
@@ -57,14 +57,14 @@ You need these information for connecting your Confluence and Jira قثبثقto 
 
 Head to the `./Postgres/initial.sql` file and then you can see the Database names and database user and the needed privileges assigned to the database user.
 
-**Postgres Dockerfile will only copy the initial.sql file java -jar atlassian-agent.jar -d -m test@test.com -n BAT -p conf -o http://192.168.97.30 -s BNSS-82Q4-VNGO-PWE5 to the container and initial the database with those queries**
+**Postgres Dockerfile will only copy the initial.sql file to the container and initial the database with those queries**
 
 ## Jira and Confluence Configs
 
 ### atlassian-agent.jar file, the important crack file
 
 You should found the `atlassian-agent.jar` file which is the main crack file for this installation and save it in `./jira` and `./confluence` directories.
- java -jar atlassian-agent.jar -d -m test@test.com -n BAT -p conf -o http://192.168.97.30 -s BNSS-82Q4-VNGO-PWE5کپی
+
 **Make sure to rename the agent crack file to `atlassian-agent.jar`**
 
 **Notice that Dockerfile needs this crack file to build the images**
@@ -79,7 +79,7 @@ But it's kinda easy to find this crack file under the `atlassian-agent.jar` name
 
 - Go to `./Jira` directory.
 - Open `server.xml` file and head to `Connector` section.
-- change `proxyName` parameter and replace your domain name with `jira.example.com` value.
+- Change `proxyName` parameter and replace your domain name with `jira.example.com` value.
 - Don't change `answers.txt` and `setenv.sh` files, They are modified to install and crack binary files.
 - Don't forget to move `atlassian-agent.jar` file to `./Jira` directory.
 
@@ -87,7 +87,7 @@ But it's kinda easy to find this crack file under the `atlassian-agent.jar` name
 
 - Go to `./Confluence` directory.
 - Open `server.xml` file and head to `Connector` section.
-- change `proxyName` parameter and replace your domain name with `confluence.example.com` value.
+- Change `proxyName` parameter and replace your domain name with `confluence.example.com` value.
 - Don't change `answers.txt` and `setenv.sh` files, They are modified to install and crack binary files.
 - Don't forget to move `atlassian-agent.jar` file to `./Confluence` directory.
 
@@ -99,16 +99,28 @@ Run `docker compose up -d` in main directory.
 
 - Step 1:
   
-  Install certboot for obtaining ssl certificate.قثبثق
+  Install certboot for obtaining ssl certificate.
+  [This link is Helpful](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-debian-11)
   
 - Step 2:
 
   Head to `./Nginx` folder and rename `jira.example.com` and `confluence.example.com` files with your subdomains.
-  Or you could set it up so that your local master branch tracks github master branch as an upstream:
   
+- Step 3: 
+
+  Open these two files and change `confluence.example.com` and `jira.example.com` under server section with your subdomains.
+
+- Step 4:
+
+  Copy these two files into `/etc/nginx/sites_enabled/`
+   
+- Step 5:
+   
   Get certificates and config the subdomains by runnig `sudo certbot --nginx` commnd.
   
-  After running the above command, if nginx asked you to set a rule for redirecting http connection to https, it is recommended to accept that.
+  After running the above command, if nginx asked you to set a rule for redirecting http connections to https, it is recommended to accept that.
+  
+- Step 6:
   
   Reload the Nginx with `sudo systemctl reload nginx`
  
@@ -117,8 +129,8 @@ Now, if your containers be up and running and you head to your subdomains for ji
 
 
 ## Set up
-قثبثق
-It may sound strange, but yoHkd u قثبثقhave to complete start up setup in a new private tab in your browser or you will get an error in database setup.
+
+It may sound strange, but you have to complete start up setup in a new private tab in your browser or you will get an error in database setup.
 
 ### Set up confluence
 
@@ -141,6 +153,8 @@ If you don't have java installed simply install it with:
 apt update
 apt install default-jdk
 ```
+
+The resault of executing this command is your license. Copy it and paste it in webpage.
 - Choose non-clustered option then click next.
 
 ![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf3.png)
@@ -165,7 +179,7 @@ And password is the one that you set in docker-compose.yml file.
 
 - Here you can make a empty site or load it from a backup. Creating an empty template is easy and you can refer to documentation for it, but here i'll load a backup.
 
-Click on load Restore From Backup.
+Click on Restore From Backup.
 
 
 ![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf6.png)قثبثق
@@ -182,7 +196,7 @@ Then reload the page and you can see the backup file down the page and then clic
 
 ![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf8.png)
 
-- IF it was complete then click on next.
+- If it was complete then click on next.
 
 ![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf9.png)
 
@@ -193,3 +207,85 @@ Then reload the page and you can see the backup file down the page and then clic
 - Now you can see the login page and you can login with your old credentials.
 
 ![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/conf11.png)
+
+### Set up Jira
+
+Like confluence open a new private tab and head to your jira subdomain e.g `https://jira.example.com`
+
+Restoring Jira is different from confluence and it is after installation.
+
+- Select I'll set it up my self option and then click next.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira1.png)
+
+- Check My own DB option and fill out the text bars.
+
+Default Hostname is `postgres`
+
+Default port is `5432`
+
+Default DB is `jiradb`
+
+Default Username is `dbuser`, if you have not changed it.
+
+Enter your password which you set in docker-compose.yml file.
+
+Then click on Test Connection and if everything was okay click on next.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira2.png)
+
+- Here replace your subdomain with `https://jira.example.com` then click on next.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira3.png)
+
+- Copy your server ID
+- Go to your server in `<github clone>/Jira/` directory and run this command: 
+
+`java -jar atlassian-agent.jar -d -m <Your Email Here> -n BAT -p jira -o https://jira.example.com -s <Your Server ID>`
+
+Replace Server ID and subdomain and email in above command.
+
+Copy your licence and paste it in webpage.
+
+Save this License because you will need it when you want to restore Jira.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira4.png)
+
+- Select later and click on next.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira5.png)
+
+- Select your language and click on next.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira6.png)
+
+- Installation is complete now.
+- Make an example project to have access to jira dashboard for restoring the backup.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira7.png)
+
+### Restoring Jira backup
+
+Open Jira dashboard and on top right corner click on gear icon and click on system.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira8.png)
+
+- In your left side find Restore System option.
+
+- Copy your backup file in `/srv/jira/import/`:
+
+`cp ./<Your Jira backup file> /srv/jira/import`
+
+Select disbale for outgoing email and then click on restore.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira9.png)
+
+- Wait till the end.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira10.png)
+
+- Click on login again to be redirected to login page and there you can login with your old credentials.
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira11.png)
+
+![](https://github.com/itsfarbod/Dockerized_Jira_Confluence_Postgres_Crackable/blob/master/README_images/jira12.png)
