@@ -104,24 +104,7 @@ Run `docker compose up -d` in main directory.
 - Step 2:
 
   Head to `./Nginx` folder and rename `jira.example.com` and `confluence.example.com` files with your subdomains.
-  
-  Open these two files and set and replace your subdomains in `server_name` parameter under `server` section.
-  
-  You should replace `jira.example.com` and `confluence.example.com` with your subdomains.
-
-- Step 3:
-  
-  move these two files with the name of your subdomains to `/etc/nginx/sites-enabled/` directory
-
-- Step 4:
-  
-  Run `sudo nginx -t` for check the config files.
-  
-  If you get an error, reopen the server block file and check for any typos or missing characters.
-  
-  If you don't, reload nginx with this command `sudo systemctl reload nginx`
-  
-- Step 5:
+  Or you could set it up so that your local master branch tracks github master branch as an upstream:
   
   Get certificates and config the subdomains by runnig `sudo certbot --nginx` commnd.
   
