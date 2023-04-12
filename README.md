@@ -4,6 +4,23 @@ Docker deployment of Jira &amp; Confluence Crackable alongside Postgres as an ex
 
 **First of all clone project to your server and go to project directory**
 
+Then install docker cli on your server
+
+after that, you need to make a sudo user e.g atlassian with sudo access and uid/gid 1000
+
+this is very important to have a user with 1000 ids
+
+then make directories for docker volumes and set permission to user with 1000 id
+
+```
+sudo mkdir /srv
+cd /srv
+sudo mkdir confluence
+sudo mkdir jira
+sudo mkdir postgres
+sudo chown -R 1000:1000 /srv
+```
+
 ## Docker Compoe Configuration
 
 ### Providing binary installation files
