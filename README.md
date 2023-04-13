@@ -122,7 +122,7 @@ Run `docker compose up -d` in main directory.
   
 - Step 6:
   
-  Reload the Nginx with `sudo systemctl reload nginx`
+  Reload the Nginx with `sudo systemctl restart nginx`
  
   
 Now, if your containers be up and running and you head to your subdomains for jira and confluence you will access to your services with https connection.
